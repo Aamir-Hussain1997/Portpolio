@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aamir Hussain — Power BI & Microsoft Fabric Expert</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#0A0D14;
+  --ink2:#131720;
+  --ink3:#1C2333;
+  --surface:#1E2740;
+  --line:rgba(255,255,255,0.07);
+  --line2:rgba(255,255,255,0.12);
+  --text:#E8EDF5;
+  --muted:#7B8CAA;
+  --faint:#3D4F6B;
+  --blue:#3B82F6;
+  --blue-l:#60A5FA;
+  --cyan:#06B6D4;
+  --cyan-l:#22D3EE;
+  --gold:#F59E0B;
+  --green:#10B981;
+  --green-l:#34D399;
+  --r:8px;
+  --r2:14px;
+  --r3:20px;
+}
+html{scroll-behavior:smooth;font-size:16px;}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--ink);
+  color:var(--text);
+  line-height:1.7;
+  overflow-x:hidden;
+}
+
+/* ── GRID MESH BG ── */
+body::before{
+  content:'';
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background-image:
+    linear-gradient(rgba(59,130,246,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(59,130,246,0.03) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;z-index:0;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3rem;height:68px;
+  background:rgba(10,13,20,0.8);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--line);
+}
+.nav-logo{
+  font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;
+  color:var(--text);text-decoration:none;letter-spacing:-0.01em;
+}
+.nav-logo em{font-style:normal;color:var(--cyan);}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{
+  color:var(--muted);font-size:0.83rem;font-weight:500;
+  text-decoration:none;letter-spacing:0.03em;text-transform:uppercase;
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--text);}
+.nav-hire{
+  background:transparent;
+  border:1px solid var(--blue);
+  color:var(--blue-l);
+  padding:0.5rem 1.4rem;border-radius:6px;
+  font-size:0.83rem;font-weight:500;text-decoration:none;
+  letter-spacing:0.04em;text-transform:uppercase;
+  transition:background .2s,color .2s;
+}
+.nav-hire:hover{background:var(--blue);color:#fff;}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:7rem 3rem 4rem;
+  position:relative;z-index:1;
+}
+/* glowing orbs */
+.hero::before{
+  content:'';position:absolute;
+  top:-80px;right:-120px;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(6,182,212,0.12) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;
+  bottom:0;left:-100px;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(59,130,246,0.09) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;position:relative;z-index:2;}
+
+.hero-status{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  background:rgba(16,185,129,0.08);
+  border:1px solid rgba(16,185,129,0.25);
+  padding:0.4rem 1rem;border-radius:100px;
+  font-size:0.78rem;font-weight:500;color:var(--green-l);
+  margin-bottom:2.5rem;letter-spacing:0.03em;
+}
+.status-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--green-l);
+  animation:blink 2s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.8);}}
+
+.hero-eyebrow{
+  font-size:0.78rem;font-weight:500;color:var(--cyan);
+  letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1rem;
+}
+.hero-h1{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2.8rem,6vw,5rem);
+  font-weight:800;line-height:1.0;
+  letter-spacing:-0.03em;
+  margin-bottom:1.5rem;
+}
+.hero-h1 .line2{color:var(--cyan);}
+.hero-h1 .line3{
+  -webkit-text-stroke:1px var(--faint);
+  color:transparent;
+}
+
+.hero-desc{
+  font-size:1.05rem;color:var(--muted);font-weight:300;
+  max-width:560px;line-height:1.75;margin-bottom:3rem;
+}
+.hero-desc strong{color:var(--text);font-weight:500;}
+
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:4rem;}
+.cta-primary{
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  color:#fff;padding:0.85rem 2rem;border-radius:var(--r);
+  font-size:0.9rem;font-weight:500;text-decoration:none;
+  transition:opacity .2s,transform .2s;
+  display:inline-flex;align-items:center;gap:0.5rem;
+}
+.cta-primary:hover{opacity:.9;transform:translateY(-2px);}
+.cta-secondary{
+  border:1px solid var(--line2);
+  color:var(--text);padding:0.85rem 2rem;border-radius:var(--r);
+  font-size:0.9rem;font-weight:400;text-decoration:none;
+  transition:border-color .2s,background .2s;
+  display:inline-flex;align-items:center;gap:0.5rem;
+}
+.cta-secondary:hover{border-color:var(--cyan);background:rgba(6,182,212,0.05);}
+
+/* ── HERO METRICS STRIP ── */
+.hero-metrics{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--line);border-radius:var(--r2);
+  overflow:hidden;
+  background:rgba(255,255,255,0.02);
+}
+.metric{
+  padding:1.5rem 1.75rem;
+  border-right:1px solid var(--line);
+}
+.metric:last-child{border-right:none;}
+.metric-val{
+  font-family:'Syne',sans-serif;
+  font-size:2rem;font-weight:800;letter-spacing:-0.03em;
+  background:linear-gradient(135deg,var(--text),var(--cyan-l));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  line-height:1;margin-bottom:0.35rem;
+}
+.metric-label{font-size:0.78rem;color:var(--muted);line-height:1.45;font-weight:300;}
+
+/* ── SECTION COMMONS ── */
+.section{padding:6rem 3rem;position:relative;z-index:1;}
+.section-inner{max-width:1200px;margin:0 auto;}
+.section-header{margin-bottom:3.5rem;}
+.eyebrow{
+  font-size:0.75rem;font-weight:500;color:var(--cyan);
+  letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.75rem;
+  display:flex;align-items:center;gap:0.6rem;
+}
+.eyebrow::before{content:'';width:24px;height:1px;background:var(--cyan);}
+.section-h2{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(1.8rem,3.5vw,2.6rem);
+  font-weight:700;letter-spacing:-0.025em;line-height:1.15;
+  margin-bottom:0.75rem;
+}
+.section-sub{color:var(--muted);font-weight:300;font-size:0.95rem;max-width:520px;}
+
+/* ── DIVIDER ── */
+.divider{border:none;border-top:1px solid var(--line);margin:0;}
+
+/* ── CLIENTS / TRUST BAR ── */
+.trust{
+  padding:2.5rem 3rem;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,0.015);
+  position:relative;z-index:1;
+}
+.trust-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;gap:3rem;flex-wrap:wrap;
+}
+.trust-label{
+  font-size:0.72rem;color:var(--faint);
+  letter-spacing:0.1em;text-transform:uppercase;
+  white-space:nowrap;font-weight:500;
+}
+.trust-pills{display:flex;gap:1rem;flex-wrap:wrap;}
+.trust-pill{
+  background:rgba(255,255,255,0.04);border:1px solid var(--line);
+  padding:0.35rem 0.9rem;border-radius:100px;
+  font-size:0.78rem;color:var(--muted);
+}
+
+/* ── SERVICES ── */
+.services-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;
+}
+.svc-card{
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--line);
+  border-radius:var(--r2);padding:2rem;
+  transition:background .25s,border-color .25s,transform .25s;
+  position:relative;overflow:hidden;
+}
+.svc-card::after{
+  content:'';position:absolute;
+  bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--blue),var(--cyan));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .35s ease;
+}
+.svc-card:hover{
+  background:rgba(255,255,255,0.055);
+  border-color:rgba(6,182,212,0.3);
+  transform:translateY(-4px);
+}
+.svc-card:hover::after{transform:scaleX(1);}
+.svc-icon{
+  width:44px;height:44px;border-radius:10px;
+  background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;margin-bottom:1.25rem;
+}
+.svc-title{
+  font-family:'Syne',sans-serif;
+  font-size:1rem;font-weight:700;margin-bottom:0.6rem;
+}
+.svc-desc{font-size:0.84rem;color:var(--muted);line-height:1.65;font-weight:300;}
+
+/* ── PROJECTS ── */
+.projects-list{display:flex;flex-direction:column;gap:1.5rem;}
+.proj{
+  background:rgba(255,255,255,0.025);
+  border:1px solid var(--line);
+  border-radius:var(--r2);
+  display:grid;grid-template-columns:1fr auto;
+  gap:2rem;align-items:start;
+  padding:2rem 2.25rem;
+  transition:background .25s,border-color .25s;
+  position:relative;
+}
+.proj::before{
+  content:'';position:absolute;left:0;top:16px;bottom:16px;
+  width:3px;border-radius:0 2px 2px 0;
+  background:linear-gradient(180deg,var(--blue),var(--cyan));
+  opacity:0;transition:opacity .3s;
+}
+.proj:hover{background:rgba(255,255,255,0.045);border-color:rgba(59,130,246,0.25);}
+.proj:hover::before{opacity:1;}
+.proj-client{
+  font-size:0.72rem;font-weight:500;color:var(--cyan);
+  letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;
+}
+.proj-title{
+  font-family:'Syne',sans-serif;
+  font-size:1.15rem;font-weight:700;margin-bottom:0.75rem;
+  letter-spacing:-0.015em;
+}
+.proj-desc{font-size:0.875rem;color:var(--muted);line-height:1.7;margin-bottom:1.25rem;font-weight:300;}
+.proj-tags{display:flex;flex-wrap:wrap;gap:0.5rem;}
+.tag{
+  background:rgba(59,130,246,0.08);
+  border:1px solid rgba(59,130,246,0.18);
+  color:var(--blue-l);
+  padding:0.25rem 0.65rem;border-radius:4px;
+  font-size:0.72rem;font-weight:500;letter-spacing:0.03em;
+}
+.proj-result{text-align:right;flex-shrink:0;}
+.result-num{
+  font-family:'Syne',sans-serif;
+  font-size:2rem;font-weight:800;letter-spacing:-0.03em;
+  color:var(--green-l);line-height:1;
+}
+.result-desc{font-size:0.72rem;color:var(--muted);margin-top:0.3rem;max-width:130px;line-height:1.4;}
+
+/* ── SKILLS ── */
+.skills-wrap{
+  display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;
+}
+.skill-list{display:flex;flex-direction:column;gap:1.25rem;}
+.skill-row{}
+.skill-head{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:0.5rem;
+}
+.skill-name-text{font-size:0.875rem;font-weight:500;}
+.skill-pct-text{font-size:0.78rem;color:var(--cyan);font-weight:500;}
+.skill-track{
+  height:3px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden;
+}
+.skill-bar{
+  height:100%;border-radius:2px;
+  background:linear-gradient(90deg,var(--blue),var(--cyan));
+}
+
+.stack-box{
+  background:rgba(255,255,255,0.025);border:1px solid var(--line);
+  border-radius:var(--r2);padding:2rem;
+}
+.stack-box-title{
+  font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;
+  color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;
+  margin-bottom:1.25rem;
+}
+.stack-pills{display:flex;flex-wrap:wrap;gap:0.6rem;}
+.stack-pill{
+  background:rgba(255,255,255,0.04);border:1px solid var(--line);
+  padding:0.4rem 0.85rem;border-radius:6px;
+  font-size:0.8rem;color:var(--muted);
+  transition:border-color .2s,color .2s;cursor:default;
+}
+.stack-pill:hover{border-color:rgba(6,182,212,0.4);color:var(--text);}
+
+/* ── EXPERIENCE ── */
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+.exp-card{
+  background:rgba(255,255,255,0.025);border:1px solid var(--line);
+  border-radius:var(--r2);padding:1.75rem;
+  transition:background .25s,border-color .25s;
+}
+.exp-card:hover{background:rgba(255,255,255,0.045);border-color:rgba(59,130,246,0.25);}
+.exp-period{
+  font-size:0.72rem;color:var(--cyan);font-weight:500;
+  letter-spacing:0.08em;margin-bottom:0.6rem;
+}
+.exp-role{
+  font-family:'Syne',sans-serif;
+  font-size:1rem;font-weight:700;margin-bottom:0.25rem;
+}
+.exp-company{font-size:0.83rem;color:var(--muted);margin-bottom:1.1rem;}
+.exp-bullets{list-style:none;}
+.exp-bullets li{
+  font-size:0.82rem;color:var(--muted);padding:0.28rem 0;
+  padding-left:1.1rem;position:relative;line-height:1.55;font-weight:300;
+}
+.exp-bullets li::before{
+  content:'▸';position:absolute;left:0;color:var(--blue);font-size:0.7rem;top:0.35rem;
+}
+
+/* ── TESTIMONIAL / CREDIBILITY ── */
+.cred-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.cred-card{
+  background:rgba(255,255,255,0.025);border:1px solid var(--line);
+  border-radius:var(--r2);padding:1.75rem;
+  transition:background .2s;
+}
+.cred-card:hover{background:rgba(255,255,255,0.04);}
+.cred-icon{font-size:1.5rem;margin-bottom:1rem;}
+.cred-val{
+  font-family:'Syne',sans-serif;
+  font-size:2rem;font-weight:800;letter-spacing:-0.03em;
+  color:var(--text);line-height:1;margin-bottom:0.4rem;
+}
+.cred-val span{color:var(--cyan);}
+.cred-desc{font-size:0.82rem;color:var(--muted);line-height:1.55;font-weight:300;}
+
+/* ── CONTACT ── */
+.contact-split{
+  display:grid;grid-template-columns:1.1fr 0.9fr;gap:4rem;align-items:center;
+}
+.contact-h2{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(1.9rem,4vw,3rem);
+  font-weight:800;letter-spacing:-0.03em;line-height:1.1;margin-bottom:1.25rem;
+}
+.contact-h2 span{color:var(--cyan);}
+.contact-body{font-size:0.9rem;color:var(--muted);font-weight:300;line-height:1.7;margin-bottom:2rem;}
+.contact-info{display:flex;flex-direction:column;gap:1.1rem;}
+.ci{
+  display:flex;align-items:center;gap:0.85rem;
+  text-decoration:none;color:var(--text);
+  font-size:0.9rem;transition:color .2s;
+}
+.ci:hover{color:var(--cyan);}
+.ci-icon{
+  width:38px;height:38px;border-radius:9px;flex-shrink:0;
+  background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.18);
+  display:flex;align-items:center;justify-content:center;font-size:1rem;
+  color:var(--cyan);
+}
+.ci-label{font-size:0.72rem;color:var(--muted);margin-bottom:0.1rem;text-transform:uppercase;letter-spacing:0.07em;}
+.ci-val{font-size:0.9rem;font-weight:400;}
+.contact-form-side{
+  background:rgba(255,255,255,0.03);border:1px solid var(--line);
+  border-radius:var(--r3);padding:2.25rem;
+}
+.form-title{
+  font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;
+  margin-bottom:1.5rem;
+}
+.form-row{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem;}
+.form-row label{font-size:0.75rem;color:var(--muted);font-weight:500;letter-spacing:0.05em;text-transform:uppercase;}
+.form-row input,
+.form-row textarea{
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--line2);
+  color:var(--text);padding:0.65rem 0.9rem;border-radius:7px;
+  font-size:0.875rem;font-family:'DM Sans',sans-serif;
+  outline:none;transition:border-color .2s,background .2s;
+  resize:none;
+}
+.form-row input:focus,
+.form-row textarea:focus{
+  border-color:var(--cyan);background:rgba(6,182,212,0.04);
+}
+.form-btn{
+  width:100%;background:linear-gradient(135deg,var(--blue),var(--cyan));
+  color:#fff;border:none;padding:0.85rem;border-radius:7px;
+  font-size:0.9rem;font-weight:500;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  transition:opacity .2s;margin-top:0.5rem;
+}
+.form-btn:hover{opacity:.88;}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid var(--line);
+  padding:2rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;
+  position:relative;z-index:1;
+}
+.footer-logo{
+  font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:800;
+  color:var(--muted);
+}
+.footer-logo em{font-style:normal;color:var(--cyan);}
+.footer-note{font-size:0.78rem;color:var(--faint);}
+.footer-links{display:flex;gap:1.5rem;}
+.footer-links a{font-size:0.78rem;color:var(--faint);text-decoration:none;transition:color .2s;}
+.footer-links a:hover{color:var(--text);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:0 1.5rem;}
+  .nav-links{display:none;}
+  .hero{padding:7rem 1.5rem 4rem;}
+  .hero-metrics{grid-template-columns:1fr 1fr;}
+  .metric:nth-child(2){border-right:none;}
+  .metric:nth-child(3){border-top:1px solid var(--line);}
+  .metric:nth-child(4){border-top:1px solid var(--line);}
+  .section{padding:4rem 1.5rem;}
+  .trust{padding:2rem 1.5rem;}
+  .services-grid{grid-template-columns:1fr;}
+  .skills-wrap{grid-template-columns:1fr;}
+  .exp-grid{grid-template-columns:1fr;}
+  .cred-grid{grid-template-columns:1fr;}
+  .contact-split{grid-template-columns:1fr;gap:2.5rem;}
+  .proj{grid-template-columns:1fr;}
+  .proj-result{text-align:left;}
+  footer{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Aamir <em>Hussain</em></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-hire">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-status">
+      <div class="status-dot"></div>
+      Available for Remote Work &amp; Relocation &nbsp;·&nbsp; Islamabad, Pakistan
+    </div>
+    <p class="hero-eyebrow">Senior Power BI Developer &amp; Microsoft Fabric Consultant</p>
+    <h1 class="hero-h1">
+      I Turn <span class="line2">Raw Data</span><br>
+      Into Decisions<br>
+      <span class="line3">That Drive Growth.</span>
+    </h1>
+    <p class="hero-desc">
+      <strong>5+ years</strong> delivering enterprise BI solutions for global clients across the US, UK, EU, and Asia.
+      From Lakehouse architecture to boardroom dashboards — I build systems that replace guesswork with clarity.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="cta-primary">See My Work →</a>
+      <a href="mailto:hello.aamirhussain@gmail.com" class="cta-secondary">✉ Let's Talk</a>
+    </div>
+
+    <div class="hero-metrics">
+      <div class="metric">
+        <div class="metric-val">80%</div>
+        <div class="metric-label">Reporting effort eliminated via ETL automation</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">10M+</div>
+        <div class="metric-label">Row datasets with sub-5s load times</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">5+</div>
+        <div class="metric-label">Years of international BI delivery</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">60%</div>
+        <div class="metric-label">Data latency reduced via ADF pipelines</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust">
+  <div class="trust-inner">
+    <span class="trust-label">Trusted by clients in</span>
+    <div class="trust-pills">
+      <span class="trust-pill">🇺🇸 United States</span>
+      <span class="trust-pill">🇬🇧 United Kingdom</span>
+      <span class="trust-pill">🇪🇺 European Union</span>
+      <span class="trust-pill">🇨🇳 China</span>
+      <span class="trust-pill">🌐 Remote-First</span>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="eyebrow">What I Do</p>
+      <h2 class="section-h2">End-to-End BI Solutions<br>Built for Decision-Makers</h2>
+      <p class="section-sub">I don't just build reports. I architect the data foundation that makes your entire organisation smarter.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card">
+        <div class="svc-icon">📊</div>
+        <div class="svc-title">Executive Dashboards & Reporting</div>
+        <div class="svc-desc">C-suite Power BI dashboards with real-time KPIs, drill-through reports, and mobile-optimised layouts. Zero analyst dependency for leadership insights.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🏗️</div>
+        <div class="svc-title">Microsoft Fabric & Lakehouse Architecture</div>
+        <div class="svc-desc">Full-stack Microsoft Fabric deployments — Lakehouse, OneLake, Dataflows Gen2 — consolidating enterprise data into a single governed analytics layer.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">⚡</div>
+        <div class="svc-title">ETL Automation & Pipeline Engineering</div>
+        <div class="svc-desc">Azure Data Factory pipelines and Power Query M templates that eliminate manual processing, cut data latency, and keep your reports always fresh.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🔗</div>
+        <div class="svc-title">Dynamics 365 & ERP Integration</div>
+        <div class="svc-desc">Native connectors and Dataverse bridges between D365 Business Central, Sales, and Power BI — financial dashboards that speak your ERP's language.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🔒</div>
+        <div class="svc-title">Data Governance & Row-Level Security</div>
+        <div class="svc-desc">RLS configurations, compliance frameworks (FERPA, GDPR), and multi-tenant security across 200+ users — the right people see the right data, always.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🚀</div>
+        <div class="svc-title">Performance Optimisation & DAX Tuning</div>
+        <div class="svc-desc">Incremental refresh, aggregation tables, star-schema modelling, and DAX rewrites that take reports from 45 seconds to under 8 seconds.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section" id="projects" style="background:rgba(255,255,255,0.012);">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="eyebrow">Case Studies</p>
+      <h2 class="section-h2">Projects Delivered for<br>Global Enterprise Clients</h2>
+      <p class="section-sub">Every number here is a real outcome, from a real client, measured against a real baseline.</p>
+    </div>
+    <div class="projects-list">
+
+      <div class="proj">
+        <div>
+          <div class="proj-client">China Enterprise Client &nbsp;·&nbsp; D365 Analytics Platform</div>
+          <div class="proj-title">Full-Stack BI Platform — 12 Executive Dashboards across Sales, Supply Chain & Finance</div>
+          <div class="proj-desc">Architected an end-to-end BI platform connecting Dynamics 365 to Power BI via Azure Synapse Analytics and ADF pipelines. Consolidated data from 6 operational modules into one governed reporting layer, enabling daily automated reporting across regional business units. Implemented Row-Level Security ensuring each stakeholder saw only their authorised data slice.</div>
+          <div class="proj-tags">
+            <span class="tag">Power BI</span>
+            <span class="tag">Azure Synapse</span>
+            <span class="tag">ADF</span>
+            <span class="tag">Dynamics 365</span>
+            <span class="tag">Dataverse</span>
+            <span class="tag">RLS</span>
+          </div>
+        </div>
+        <div class="proj-result">
+          <div class="result-num">↓70%</div>
+          <div class="result-desc">Manual data consolidation effort eliminated</div>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div>
+          <div class="proj-client">LITS Services &nbsp;·&nbsp; Internal Enterprise</div>
+          <div class="proj-title">Microsoft Fabric Lakehouse — Legacy SQL Server to Modern Cloud Analytics</div>
+          <div class="proj-desc">Led complete migration from legacy SQL Server reporting to Microsoft Fabric Lakehouse on OneLake. Built Dataflows Gen2 pipelines ingesting from 5 source systems (SharePoint, SQL Server, D365, Excel, REST APIs) with error alerting and scheduled refresh. Delivered near-real-time executive dashboards via DirectLake connectivity, eliminating a previous 4-hour data delay.</div>
+          <div class="proj-tags">
+            <span class="tag">Microsoft Fabric</span>
+            <span class="tag">Lakehouse</span>
+            <span class="tag">OneLake</span>
+            <span class="tag">Dataflows Gen2</span>
+            <span class="tag">DirectLake</span>
+            <span class="tag">ADF</span>
+          </div>
+        </div>
+        <div class="proj-result">
+          <div class="result-num">sub-3s</div>
+          <div class="result-desc">Dashboard render time, from a 4-hour delay</div>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div>
+          <div class="proj-client">US Education Client &nbsp;·&nbsp; LMS Integration</div>
+          <div class="proj-title">Student Performance Analytics — 10,000+ Students, FERPA Compliant</div>
+          <div class="proj-desc">Established ODBC connectivity between Blackboard LMS and Snowflake, building an automated daily pipeline refreshing 10,000+ student records into Power BI without manual intervention. Faculty dashboards tracked course completion, assignment scores, attendance, and at-risk flags for early intervention. Role-based RLS achieved full FERPA compliance while giving department heads aggregated views.</div>
+          <div class="proj-tags">
+            <span class="tag">Power BI</span>
+            <span class="tag">Snowflake</span>
+            <span class="tag">ODBC</span>
+            <span class="tag">Power Query</span>
+            <span class="tag">DAX</span>
+            <span class="tag">FERPA / RLS</span>
+          </div>
+        </div>
+        <div class="proj-result">
+          <div class="result-num">↓80%</div>
+          <div class="result-desc">Manual reporting effort eliminated</div>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div>
+          <div class="proj-client">EU Finance Client &nbsp;·&nbsp; Business Central</div>
+          <div class="proj-title">Self-Service Financial BI — P&L, Cash Flow & Budget Variance across 3 Legal Entities</div>
+          <div class="proj-desc">Connected Power BI to Dynamics 365 Business Central via native connector and Dataverse across 3 legal entities. Built a unified star-schema model and a self-service finance dashboard suite covering P&L, revenue vs budget variance, rolling 12-month averages, and cash flow forecasting. Developed 30+ custom DAX measures enabling finance teams to build ad-hoc reports independently.</div>
+          <div class="proj-tags">
+            <span class="tag">Power BI</span>
+            <span class="tag">Business Central</span>
+            <span class="tag">Dataverse</span>
+            <span class="tag">DAX</span>
+            <span class="tag">Star Schema</span>
+          </div>
+        </div>
+        <div class="proj-result">
+          <div class="result-num">5d→12h</div>
+          <div class="result-desc">Month-end reporting cycle reduced</div>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div>
+          <div class="proj-client">US Corporate Client &nbsp;·&nbsp; Operations</div>
+          <div class="proj-title">SharePoint Operations Dashboard — 50+ Stakeholders, Automated Weekly Delivery</div>
+          <div class="proj-desc">Unified Power BI with SharePoint, Dynamics 365, and SQL Server to build an operations dashboard across 8 departments covering project status, resource utilisation, and SLA compliance tracking. Automated weekly report distribution via Power Automate delivering personalised PDF snapshots to 50+ stakeholders every Monday. Query folding and incremental refresh slashed dataset refresh time.</div>
+          <div class="proj-tags">
+            <span class="tag">Power BI</span>
+            <span class="tag">SharePoint</span>
+            <span class="tag">SQL Server</span>
+            <span class="tag">Power Automate</span>
+            <span class="tag">DAX</span>
+          </div>
+        </div>
+        <div class="proj-result">
+          <div class="result-num">47m→9m</div>
+          <div class="result-desc">Dataset refresh time via query folding</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section" id="skills">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="eyebrow">Technical Expertise</p>
+      <h2 class="section-h2">Skills & Technology Stack</h2>
+      <p class="section-sub">Deep expertise across the full Microsoft data stack — from ingestion to insight.</p>
+    </div>
+    <div class="skills-wrap">
+      <div class="skill-list">
+        <div class="skill-row">
+          <div class="skill-head"><span class="skill-name-text">Power BI &amp; Microsoft Fabric</span><span class="skill-pct-text">98%</span></div>
+          <div class="skill-track"><div class="skill-bar" style="width:98%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-head"><span class="skill-name-text">DAX &amp; Data Modelling</span><span class="skill-pct-text">95%</span></div>
+          <div class="skill-track"><div class="skill-bar" style="width:95%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-head"><span class="skill-name-text">Power Query / ETL (M Language)</span><span class="skill-pct-text">93%</span></div>
+          <div class="skill-track"><div class="skill-bar" style="width:93%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-head"><span class="skill-name-text">SQL / T-SQL</span><span class="skill-pct-text">90%</span></div>
+          <div class="skill-track"><div class="skill-bar" style="width:90%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-head"><span class="skill-name-text">Azure Data Services (ADF, Synapse)</span><span class="skill-pct-text">88%</span></div>
+          <div class="skill-track"><div class="skill-bar" style="width:88%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-head"><span class="skill-name-text">Dynamics 365 &amp; Dataverse</span><span class="skill-pct-text">85%</span></div>
+          <div class="skill-track"><div class="skill-bar" style="width:85%"></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="stack-box" style="margin-bottom:1.25rem;">
+          <div class="stack-box-title">BI &amp; Visualisation</div>
+          <div class="stack-pills">
+            <span class="stack-pill">Power BI Desktop</span>
+            <span class="stack-pill">Power BI Service</span>
+            <span class="stack-pill">Power BI Embedded</span>
+            <span class="stack-pill">DirectLake</span>
+            <span class="stack-pill">Paginated Reports</span>
+          </div>
+        </div>
+        <div class="stack-box" style="margin-bottom:1.25rem;">
+          <div class="stack-box-title">Cloud &amp; Data Platform</div>
+          <div class="stack-pills">
+            <span class="stack-pill">Microsoft Fabric</span>
+            <span class="stack-pill">OneLake</span>
+            <span class="stack-pill">Lakehouse</span>
+            <span class="stack-pill">Dataflows Gen2</span>
+            <span class="stack-pill">Azure Data Factory</span>
+            <span class="stack-pill">Azure Synapse</span>
+            <span class="stack-pill">Snowflake</span>
+          </div>
+        </div>
+        <div class="stack-box">
+          <div class="stack-box-title">ERP &amp; Collaboration</div>
+          <div class="stack-pills">
+            <span class="stack-pill">Dynamics 365</span>
+            <span class="stack-pill">Business Central</span>
+            <span class="stack-pill">Dataverse</span>
+            <span class="stack-pill">SharePoint</span>
+            <span class="stack-pill">Power Automate</span>
+            <span class="stack-pill">SQL Server</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDIBILITY -->
+<section class="section" style="background:rgba(255,255,255,0.012);">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="eyebrow">By the Numbers</p>
+      <h2 class="section-h2">What Clients Can Expect</h2>
+    </div>
+    <div class="cred-grid">
+      <div class="cred-card">
+        <div class="cred-icon">⚡</div>
+        <div class="cred-val"><span>sub-5s</span></div>
+        <div class="cred-desc">Load times achieved on datasets of 10M+ rows through incremental refresh, aggregation tables, and DAX optimisation.</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-icon">🎯</div>
+        <div class="cred-val"><span>99%+</span></div>
+        <div class="cred-desc">Data quality benchmark maintained across all UAT cycles and production deployments — zero critical errors in delivery.</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-icon">🌍</div>
+        <div class="cred-val"><span>4</span> continents</div>
+        <div class="cred-desc">Clients served across the US, UK, EU, and Asia in finance, education, operations, and technology sectors.</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-icon">🔄</div>
+        <div class="cred-val"><span>24h→2h</span></div>
+        <div class="cred-desc">Time-to-insight reduction via automated Dataflows Gen2 pipelines replacing manual overnight processing.</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-icon">👥</div>
+        <div class="cred-val"><span>200+</span></div>
+        <div class="cred-desc">Business users served from a single Microsoft Fabric Lakehouse implementation with governed, role-based access.</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-icon">📋</div>
+        <div class="cred-val"><span>30+</span></div>
+        <div class="cred-desc">Custom DAX measures built for a single finance client, enabling fully self-service ad-hoc financial reporting.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section" id="experience">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="eyebrow">Career History</p>
+      <h2 class="section-h2">5 Years of Progressive<br>BI Leadership</h2>
+      <p class="section-sub">From junior analyst to senior consultant — building enterprise-grade solutions at every stage.</p>
+    </div>
+    <div class="exp-grid">
+
+      <div class="exp-card">
+        <div class="exp-period">September 2025 → Present</div>
+        <div class="exp-role">Power BI Developer / Data Analyst</div>
+        <div class="exp-company">LITS Services · Lahore (Remote)</div>
+        <ul class="exp-bullets">
+          <li>Microsoft Fabric Lakehouse architecture serving 200+ business users from unified OneLake</li>
+          <li>ADF pipelines cut data latency 60% and eliminated 15+ hours of weekly manual work</li>
+          <li>C-suite dashboards with real-time KPI visibility across operations, finance, and sales</li>
+          <li>RLS and data governance deployed across 5+ departments for full regulatory compliance</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-period">April 2025 → August 2025</div>
+        <div class="exp-role">Power BI Developer</div>
+        <div class="exp-company">Smart-IS · Islamabad</div>
+        <ul class="exp-bullets">
+          <li>Delivered scalable BI integrating D365, SQL Server, SharePoint, and Snowflake for 150+ stakeholders across 4 BUs</li>
+          <li>Power Automate workflows cut manual reporting effort 30%, improving SLA compliance</li>
+          <li>Real-time KPI frameworks for UK, US, and China clients tracking revenue and operational performance</li>
+          <li>Maintained 99%+ data quality benchmarks across all UAT and production cycles</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-period">June 2022 → March 2025</div>
+        <div class="exp-role">Power BI Developer (Engineer I)</div>
+        <div class="exp-company">Guru Group LLC · Dothan, Alabama, USA (Remote)</div>
+        <ul class="exp-bullets">
+          <li>Enterprise dashboards for 6 departments, cutting month-end reporting time by 50%</li>
+          <li>Blackboard LMS–Snowflake integration tracking 10,000+ students, 80% effort reduction</li>
+          <li>Report load times from 45s to under 8s via DAX, incremental refresh, and aggregations</li>
+          <li>ADF pipelines automating ingestion from SQL Server, SharePoint, Azure Data Lake, Snowflake</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-period">October 2020 → June 2022</div>
+        <div class="exp-role">Junior Power BI Developer / BI Analyst</div>
+        <div class="exp-company">Naafay IT Consultants · Peshawar</div>
+        <ul class="exp-bullets">
+          <li>Interactive dashboards for 5 business units enabling centralised cross-departmental KPI tracking</li>
+          <li>Reduced data preparation time 40% through reusable Power Query M Language ETL templates</li>
+          <li>Delivered 10+ BI projects with zero critical data errors in production through rigorous UAT</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact" style="background:rgba(255,255,255,0.012);">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="eyebrow">Get In Touch</p>
+    </div>
+    <div class="contact-split">
+      <div>
+        <h2 class="contact-h2">Ready to Make Your<br>Data Work <span>Harder?</span></h2>
+        <p class="contact-body">Whether you need a Power BI dashboard built from scratch, a Microsoft Fabric migration, or a full enterprise BI overhaul — I'd love to hear what you're trying to solve. I respond within 24 hours.</p>
+        <div class="contact-info">
+          <a class="ci" href="mailto:hello.aamirhussain@gmail.com">
+            <div class="ci-icon">✉</div>
+            <div><div class="ci-label">Email</div><div class="ci-val">hello.aamirhussain@gmail.com</div></div>
+          </a>
+          <a class="ci" href="tel:+923101906761">
+            <div class="ci-icon">📞</div>
+            <div><div class="ci-label">Phone / WhatsApp</div><div class="ci-val">+92 310 190 6761</div></div>
+          </a>
+          <a class="ci" href="https://linkedin.com/in/aamirhussain97" target="_blank">
+            <div class="ci-icon">in</div>
+            <div><div class="ci-label">LinkedIn</div><div class="ci-val">linkedin.com/in/aamirhussain97</div></div>
+          </a>
+          <div class="ci" style="cursor:default;">
+            <div class="ci-icon">📍</div>
+            <div><div class="ci-label">Location</div><div class="ci-val">Islamabad, Pakistan · Open to Relocation</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form-side">
+        <div class="form-title">Send a Message</div>
+        <div class="form-row">
+          <label>Your Name</label>
+          <input type="text" placeholder="John Smith">
+        </div>
+        <div class="form-row">
+          <label>Email Address</label>
+          <input type="email" placeholder="john@company.com">
+        </div>
+        <div class="form-row">
+          <label>What do you need?</label>
+          <textarea rows="4" placeholder="e.g. Power BI dashboards for our sales team, Microsoft Fabric migration, financial reporting automation..."></textarea>
+        </div>
+        <button class="form-btn" onclick="var n=document.querySelector('.form-row input').value||'there';var e=document.querySelectorAll('.form-row input')[1].value;var m=document.querySelector('textarea').value;window.location='mailto:hello.aamirhussain@gmail.com?subject=Project Enquiry from '+n+'&body='+encodeURIComponent(m);">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">Aamir <em>Hussain</em></span>
+  <span class="footer-note">Senior Power BI Developer &amp; Microsoft Fabric Consultant · Islamabad, Pakistan</span>
+  <div class="footer-links">
+    <a href="mailto:hello.aamirhussain@gmail.com">Email</a>
+    <a href="https://linkedin.com/in/aamirhussain97" target="_blank">LinkedIn</a>
+    <a href="tel:+923101906761">WhatsApp</a>
+  </div>
+</footer>
+
+</body>
+</html>
